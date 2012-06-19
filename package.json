@@ -1,0 +1,25 @@
+{
+  "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)",
+  "name": "urlrouter",
+  "description": "connect missing router middleware.",
+  "version": "0.1.0",
+  "homepage": "http://github.com/fengmk2/connect-router",
+  "repository": {
+    "url": "git://github.com/fengmk2/connect-router.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "rewire": "*",
+    "connect": ">=1.8.0"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=0.6.7"
+  }
+}

@@ -1,0 +1,1 @@
+module.exports = process.env.URLROUTER_COV ? require('./lib-cov/urlrouter') : require('./lib/urlrouter');
