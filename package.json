@@ -10,7 +10,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test-version"
   },
   "dependencies": {},
   "devDependencies": {
