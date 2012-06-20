@@ -14,6 +14,10 @@ http.createServer(urlrouter(function (app) {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.end('Hello World\n');
   });
+  app.get('/user/:id', function (request, response) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end('Hello World\n');
+  });
 })).listen(8125);
 
 connect(function (request, response) {

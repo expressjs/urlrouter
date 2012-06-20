@@ -21,6 +21,9 @@ var router = urlrouter(function (app) {
   app.get(/^\/users?(?:\/(\d+)(?:\.\.(\d+))?)?/, function (req, res) {
     res.end(JSON.stringify(req.params));
   });
+  app.get('/topic/:id', function (req, res) {
+    res.end('topic ' + req.params.id);
+  });
   app.get('/foo', function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
@@ -122,6 +125,14 @@ var router = urlrouter(function (app) {
           var params = JSON.parse(res.body);
           params.should.length(2);
           params.should.eql(['1', '100']);
+          done();
+        });
+      });
+
+      it('should /topic/9999 200', function (done) {
+        app.request().get('/topic/9999').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('topic 9999');
           done();
         });
       });

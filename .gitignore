@@ -1,3 +1,4 @@
 node_modules
+siege.log
 lib-cov
 coverage.html

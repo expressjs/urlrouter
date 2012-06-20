@@ -6,6 +6,8 @@
 
 [connect](https://github.com/senchalabs/connect) missing router middleware.
 
+Support [express](http://expressjs.com) format [routing](http://expressjs.com/guide.html#routing).
+
 Support `connect` @1.8.x and @2.2.0+ .
 
 ## Test connect version
@@ -36,6 +38,9 @@ connect(urlrouter(function (app) {
   app.get('/', function (req, res, next) {
     res.end('hello urlrouter');
   });
+  app.get('/user/:id([0-9]+)', function (req, res, next) {
+    res.end('hello user ' + req.params.id);
+  });
 })).listen(3000);
 ```
 
@@ -48,6 +53,14 @@ var urlrouter = require('urlrouter');
 var router = urlrouter(function (app) {
   app.get('/', function (req, res) {
     res.end('GET home page' + req.url + ' , headers: ' + JSON.stringify(req.headers));
+  });
+
+  app.get('/user/:id', function (req, res) {
+    res.end('user: ' + req.params.id);
+  });
+
+  app.get(/^\/users?(?:\/(\d+)(?:\.\.(\d+))?)?/, function (req, res) {
+    res.end(req.url + ' : ' + req.params);
   });
 
   app.get('/foo', function (req, res) {

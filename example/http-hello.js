@@ -6,6 +6,14 @@ var router = urlrouter(function (app) {
     res.end('GET home page' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
 
+  app.get('/user/:id', function (req, res) {
+    res.end('user: ' + req.params.id);
+  });
+
+  app.get(/^\/users?(?:\/(\d+)(?:\.\.(\d+))?)?/, function (req, res) {
+    res.end(req.url + ' : ' + req.params);
+  });
+
   app.get('/foo', function (req, res) {
     res.end('GET ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
