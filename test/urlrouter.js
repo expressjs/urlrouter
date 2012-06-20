@@ -18,6 +18,9 @@ var router = urlrouter(function (app) {
   app.get('/', function (req, res) {
     res.end('home page');
   });
+  app.get(/^\/users?(?:\/(\d+)(?:\.\.(\d+))?)?/, function (req, res) {
+    res.end(JSON.stringify(req.params));
+  });
   app.get('/foo', function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
@@ -61,6 +64,67 @@ var router = urlrouter(function (app) {
     });
     after(function () {
       app.close();
+    });
+
+    describe('support RegExp()', function () {
+      it('should /user 200', function (done) {
+        app.request().get('/user').end(function (res) {
+          res.should.status(200);
+          var params = JSON.parse(res.body);
+          params.should.length(2);
+          params.should.eql([null, null]);
+          done();
+        });
+      });
+
+      it('should /users 200', function (done) {
+        app.request().get('/users').end(function (res) {
+          res.should.status(200);
+          var params = JSON.parse(res.body);
+          params.should.length(2);
+          params.should.eql([null, null]);
+          done();
+        });
+      });
+
+      it('should /users/123 200', function (done) {
+        app.request().get('/users/123').end(function (res) {
+          res.should.status(200);
+          var params = JSON.parse(res.body);
+          params.should.length(2);
+          params.should.eql(['123', null]);
+          done();
+        });
+      });
+
+      it('should /users/mk2 200 return [null, null]', function (done) {
+        app.request().get('/users/mk2').end(function (res) {
+          var params = JSON.parse(res.body);
+          params.should.length(2);
+          params.should.eql([null, null]);
+          done();
+        });
+      });
+
+      it('should /user/123 200', function (done) {
+        app.request().get('/user/123').end(function (res) {
+          res.should.status(200);
+          var params = JSON.parse(res.body);
+          params.should.length(2);
+          params.should.eql(['123', null]);
+          done();
+        });
+      });
+
+      it('should /users/1..100 200', function (done) {
+        app.request().get('/users/1..100').end(function (res) {
+          res.should.status(200);
+          var params = JSON.parse(res.body);
+          params.should.length(2);
+          params.should.eql(['1', '100']);
+          done();
+        });
+      });
     });
 
     describe('get()', function () {
