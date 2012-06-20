@@ -1,9 +1,10 @@
 {
-  "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)",
   "name": "urlrouter",
   "description": "connect missing router middleware.",
-  "version": "0.1.0",
+  "keywords": ["router", "url", "connect", "middleware", "express"],
+  "version": "0.2.0",
   "homepage": "http://github.com/fengmk2/connect-router",
+  "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)",
   "repository": {
     "url": "git://github.com/fengmk2/connect-router.git"
   },
