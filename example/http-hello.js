@@ -39,7 +39,7 @@ var router = urlrouter(function (app) {
   });
 
   app.options('/check', function (req, res) {
-    res.end('PUT ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
+    res.end('OPTIONS ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
 });
 

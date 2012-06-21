@@ -61,7 +61,7 @@ var router = urlrouter(function (app) {
     before(function (done) {
       app = m.createServer(router);
       if (moduleName === 'connect') {
-        app.use(urlrouter.__get__('notFound'));
+        app.use(urlrouter.__get__('pageNotFound'));
       }
       app = app.listen(0, done);
     });
@@ -213,3 +213,29 @@ var router = urlrouter(function (app) {
 
 });
 
+var routerWith404Handler = urlrouter(function (app) {
+  
+}, {
+  pageNotFound: function (req, res) {
+    res.statusCode = 404;
+    res.end('oh no, page ' + req.url + ' missing...');
+  }
+});
+
+describe('options.pageNotFound()', function () {
+  var app;
+  before(function (done) {
+    app = http.createServer(routerWith404Handler);
+    app.listen(0, done);
+  });
+  after(function () {
+    app.close();
+  });
+  it('should using custom page not found handler', function (done) {
+    app.request().get('/404').end(function (res) {
+      res.should.status(404);
+      res.body.toString().should.equal('oh no, page /404 missing...');
+      done();
+    });
+  });
+});

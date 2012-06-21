@@ -19,6 +19,8 @@ Support `connect` @1.8.x and @2.2.0+ .
 $ make test-version
 ```
 
+test results: [test_results.md](https://github.com/fengmk2/urlrouter/blob/master/test_results.md)
+
 ## Install
 
 ```bash
@@ -48,6 +50,13 @@ connect(urlrouter(function (app) {
 ```javascript
 var http = require('http');
 var urlrouter = require('urlrouter');
+
+var options = {
+  pageNotFound: function (req, res) {
+    res.statusCode = 404;
+    res.end('er... some page miss...');
+  }
+};
 
 var router = urlrouter(function (app) {
   app.get('/', function (req, res) {
@@ -87,9 +96,9 @@ var router = urlrouter(function (app) {
   });
 
   app.options('/check', function (req, res) {
-    res.end('PUT ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
+    res.end('OPTIONS ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
-});
+}, options);
 
 http.createServer(router).listen(3000);
 ```
