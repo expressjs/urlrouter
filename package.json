@@ -1,12 +1,16 @@
 {
   "name": "urlrouter",
-  "description": "connect missing router middleware.",
+  "description": "connect missing router middleware, support express format routing.",
   "keywords": ["router", "url", "connect", "middleware", "express"],
   "version": "0.2.1",
-  "homepage": "http://github.com/fengmk2/connect-router",
+  "homepage": "http://github.com/fengmk2/urlrouter",
   "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)",
   "repository": {
-    "url": "git://github.com/fengmk2/connect-router.git"
+    "url": "git://github.com/fengmk2/urlrouter.git",
+    "type": "git"
+  },
+  "bugs": { 
+    "url": "http://github.com/fengmk2/urlrouter/issues"
   },
   "main": "index.js",
   "scripts": {
