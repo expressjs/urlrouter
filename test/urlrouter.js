@@ -14,6 +14,17 @@ var http = require('http');
 var connect = require('connect');
 var urlrouter = process.env.URLROUTER_COV ? rewire('../lib-cov/urlrouter') : rewire('../lib/urlrouter');
 
+var middleware = function (req, res, next) {
+  var action = req.url || '';
+  if (action === '/mwError') {
+    return next(new Error('Some Error'));
+  } else if (action === '/mwReturn') {
+    return res.end('return by middleware');
+  } else {
+    return next();
+  }
+};
+
 var router = urlrouter(function (app) {
   app.get('/', function (req, res) {
     res.end('home page');
@@ -25,6 +36,18 @@ var router = urlrouter(function (app) {
     res.end('topic ' + req.params.id);
   });
   app.get('/foo', function (req, res) {
+    res.end(req.method + ' ' + req.url);
+  });
+  app.get('/mw', middleware, function (req, res) {
+    res.end(req.method + ' ' + req.url);
+  });
+  app.get('/mwMulti', [middleware, [middleware]], function (req, res) {
+    res.end(req.method + ' ' + req.url);
+  });
+  app.get('/mwError', middleware, function (err, req, res) {
+    res.end('error occurred');
+  });
+  app.get('/mwReturn', middleware, function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
   app.head('/status', function (req, res) {
@@ -154,6 +177,38 @@ var router = urlrouter(function (app) {
           done();
         });
       });
+
+      it('should return /mw', function (done) {
+        app.request().get('/mw').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('GET /mw');
+          done();
+        });
+      });
+
+      it('should return /mwMulti', function (done) {
+        app.request().get('/mwMulti').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('GET /mwMulti');
+          done();
+        });
+      });
+
+      it('should return /mwError with error', function (done) {
+        app.request().get('/mwError').end(function (res) {
+          res.should.status(500);
+          res.body.toString().should.include('Some Error');
+          done();
+        });
+      });
+
+      it('should return /mwReturn', function (done) {
+        app.request().get('/mwReturn').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('return by middleware');
+          done();
+        });
+      });
     });
 
     describe('post()', function () {
@@ -235,6 +290,37 @@ describe('options.pageNotFound()', function () {
     app.request().get('/404').end(function (res) {
       res.should.status(404);
       res.body.toString().should.equal('oh no, page /404 missing...');
+      done();
+    });
+  });
+});
+
+var routerWithErrHandler = urlrouter(function (app) {
+  app.get('/', function (req, res, next) {
+    return next(new Error('Some more Error'));
+  }, function (req, res) {
+    res.end('should not come here');
+  });
+}, {
+  errorHandler: function (err, req, res) {
+    res.statusCode = 200;
+    res.end('oh no, error occurred on ' + req.url);
+  }
+});
+
+describe('options.errorHandler()', function () {
+  var app;
+  before(function (done) {
+    app = http.createServer(routerWithErrHandler);
+    app.listen(0, done);
+  });
+  after(function () {
+    app.close();
+  });
+  it('should using custom error handler', function (done) {
+    app.request().get('/').end(function (res) {
+      res.should.status(200);
+      res.body.toString().should.equal('oh no, error occurred on /');
       done();
     });
   });
