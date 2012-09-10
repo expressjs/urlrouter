@@ -268,19 +268,27 @@ var router = urlrouter(function (app) {
 
 });
 
-var routerWith404Handler = urlrouter(function (app) {
-  
+var routerWithCustomHandler = urlrouter(function (app) {
+  app.get('/error', function (req, res, next) {
+    return next(new Error('Some more Error'));
+  }, function (req, res) {
+    res.end('should not come here');
+  });
 }, {
   pageNotFound: function (req, res) {
     res.statusCode = 404;
     res.end('oh no, page ' + req.url + ' missing...');
+  },
+  errorHandler: function (err, req, res) {
+    res.statusCode = 200;
+    res.end('oh no, error occurred on ' + req.url);
   }
 });
 
-describe('options.pageNotFound()', function () {
+describe('options.pageNotFound() and options.errorHandler()', function () {
   var app;
   before(function (done) {
-    app = http.createServer(routerWith404Handler);
+    app = http.createServer(routerWithCustomHandler);
     app.listen(0, done);
   });
   after(function () {
@@ -293,34 +301,28 @@ describe('options.pageNotFound()', function () {
       done();
     });
   });
-});
-
-var routerWithErrHandler = urlrouter(function (app) {
-  app.get('/', function (req, res, next) {
-    return next(new Error('Some more Error'));
-  }, function (req, res) {
-    res.end('should not come here');
+  it('should using custom error handler', function (done) {
+    app.request().get('/error').end(function (res) {
+      res.should.status(200);
+      res.body.toString().should.equal('oh no, error occurred on /error');
+      done();
+    });
   });
-}, {
-  errorHandler: function (err, req, res) {
-    res.statusCode = 200;
-    res.end('oh no, error occurred on ' + req.url);
-  }
 });
 
-describe('options.errorHandler()', function () {
+describe('use connect with options.errorHandler()', function () {
   var app;
   before(function (done) {
-    app = http.createServer(routerWithErrHandler);
-    app.listen(0, done);
+    app = connect.createServer(routerWithCustomHandler);
+    app = app.listen(0, done);
   });
   after(function () {
     app.close();
   });
   it('should using custom error handler', function (done) {
-    app.request().get('/').end(function (res) {
+    app.request().get('/error').end(function (res) {
       res.should.status(200);
-      res.body.toString().should.equal('oh no, error occurred on /');
+      res.body.toString().should.equal('oh no, error occurred on /error');
       done();
     });
   });
