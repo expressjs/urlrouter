@@ -581,12 +581,12 @@ app.request().get('/error').end(function (res) {
 
 <a name="use-connect-with-optionserrorhandler" />
 # use connect with options.errorHandler()
-should using custom error handler.
+should using next first.
 
 ```js
 app.request().get('/error').end(function (res) {
-  res.should.status(200);
-  res.body.toString().should.equal('oh no, error occurred on /error');
+  res.should.status(500);
+  res.body.toString().should.include('Some more Error');
   done();
 });
 ```

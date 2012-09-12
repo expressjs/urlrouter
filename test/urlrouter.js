@@ -319,10 +319,10 @@ describe('use connect with options.errorHandler()', function () {
   after(function () {
     app.close();
   });
-  it('should using custom error handler', function (done) {
+  it('should using next first', function (done) {
     app.request().get('/error').end(function (res) {
-      res.should.status(200);
-      res.body.toString().should.equal('oh no, error occurred on /error');
+      res.should.status(500);
+      res.body.toString().should.include('Some more Error');
       done();
     });
   });
