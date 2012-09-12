@@ -15,7 +15,8 @@
      - [head()](#connectcreateserver-head)
      - [delete()](#connectcreateserver-delete)
      - [404 Page Not Found](#connectcreateserver-404-page-not-found)
-   - [options.pageNotFound()](#optionspagenotfound)
+   - [options.pageNotFound() and options.errorHandler()](#optionspagenotfound-and-optionserrorhandler)
+   - [use connect with options.errorHandler()](#use-connect-with-optionserrorhandler)
    - [utils.js](#utilsjs)
      - [createRouter()](#utilsjs-createrouter)
 <a name="" />
@@ -123,6 +124,46 @@ should return /foo.
 app.request().get('/foo').end(function (res) {
   res.should.status(200);
   res.body.toString().should.equal('GET /foo');
+  done();
+});
+```
+
+should return /mw.
+
+```js
+app.request().get('/mw').end(function (res) {
+  res.should.status(200);
+  res.body.toString().should.equal('GET /mw');
+  done();
+});
+```
+
+should return /mwMulti.
+
+```js
+app.request().get('/mwMulti').end(function (res) {
+  res.should.status(200);
+  res.body.toString().should.equal('GET /mwMulti');
+  done();
+});
+```
+
+should return /mwError with error.
+
+```js
+app.request().get('/mwError').end(function (res) {
+  res.should.status(500);
+  res.body.toString().should.include('Some Error');
+  done();
+});
+```
+
+should return /mwReturn.
+
+```js
+app.request().get('/mwReturn').end(function (res) {
+  res.should.status(200);
+  res.body.toString().should.equal('return by middleware');
   done();
 });
 ```
@@ -355,6 +396,46 @@ app.request().get('/foo').end(function (res) {
 });
 ```
 
+should return /mw.
+
+```js
+app.request().get('/mw').end(function (res) {
+  res.should.status(200);
+  res.body.toString().should.equal('GET /mw');
+  done();
+});
+```
+
+should return /mwMulti.
+
+```js
+app.request().get('/mwMulti').end(function (res) {
+  res.should.status(200);
+  res.body.toString().should.equal('GET /mwMulti');
+  done();
+});
+```
+
+should return /mwError with error.
+
+```js
+app.request().get('/mwError').end(function (res) {
+  res.should.status(500);
+  res.body.toString().should.include('Some Error');
+  done();
+});
+```
+
+should return /mwReturn.
+
+```js
+app.request().get('/mwReturn').end(function (res) {
+  res.should.status(200);
+  res.body.toString().should.equal('return by middleware');
+  done();
+});
+```
+
 <a name="connectcreateserver-post" />
 ## post()
 should /post 200.
@@ -476,14 +557,36 @@ app.request()[method]('/404').end(function (res) {
 });
 ```
 
-<a name="optionspagenotfound" />
-# options.pageNotFound()
+<a name="optionspagenotfound-and-optionserrorhandler" />
+# options.pageNotFound() and options.errorHandler()
 should using custom page not found handler.
 
 ```js
 app.request().get('/404').end(function (res) {
   res.should.status(404);
   res.body.toString().should.equal('oh no, page /404 missing...');
+  done();
+});
+```
+
+should using custom error handler.
+
+```js
+app.request().get('/error').end(function (res) {
+  res.should.status(200);
+  res.body.toString().should.equal('oh no, error occurred on /error');
+  done();
+});
+```
+
+<a name="use-connect-with-optionserrorhandler" />
+# use connect with options.errorHandler()
+should using next first.
+
+```js
+app.request().get('/error').end(function (res) {
+  res.should.status(500);
+  res.body.toString().should.include('Some more Error');
   done();
 });
 ```
