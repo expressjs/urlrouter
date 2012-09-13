@@ -47,6 +47,35 @@ connect(urlrouter(function (app) {
 })).listen(3000);
 ```
 
+Several callbacks may also be passed.
+
+```javascript
+
+function loadUser(req, res, next) {
+  // You would fetch user from the db
+  var user = users[req.params.id];
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    next(new Error('Failed to load user ' + req.params.id));
+  }
+}
+
+app.get('/user/:id', loadUser, function () {
+  // ...
+});
+```
+
+These callbacks can be passed within arrays as well.
+
+```javascript
+var middleware = [loadUser, [loadForum, loadThread]];
+app.post('/forum/:fid/thread/:tid', middleware, function () {
+ // ...
+});
+```
+
 ### Using with `http.createServer()`
 
 ```javascript
@@ -57,19 +86,34 @@ var options = {
   pageNotFound: function (req, res) {
     res.statusCode = 404;
     res.end('er... some page miss...');
+  },
+  errorHandler: function (req, res) {
+    res.statusCode = 500;
+    res.end('oops..error occurred');
   }
 };
+
+function loadUser(req, res, next) {
+  // You would fetch user from the db
+  var user = users[req.params.id];
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    next(new Error('Failed to load user ' + req.params.id));
+  }
+}
 
 var router = urlrouter(function (app) {
   app.get('/', function (req, res) {
     res.end('GET home page' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
-
-  app.get('/user/:id', function (req, res) {
+  // with route middleware
+  app.get('/user/:id', loadUser,  function (req, res) {
     res.end('user: ' + req.params.id);
   });
 
-  app.get(/^\/users?(?:\/(\d+)(?:\.\.(\d+))?)?/, function (req, res) {
+  app.get(/^\/users?(?:\/(\d+)(?:\.\.(\d+))?)?/, loadUser, function (req, res) {
     res.end(req.url + ' : ' + req.params);
   });
 
