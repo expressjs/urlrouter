@@ -105,6 +105,13 @@ var router = urlrouter(function (app) {
 http.createServer(router).listen(3000);
 ```
 
+## Contributors
+Ordered by date of first contribution.
+[Auto-generated](http://github.com/dtrejo/node-authors) on Thu Sep 13 2012 10:49:38 GMT+0800 (CST).
+
+- [fengmk2](https://github.com/fengmk2)
+- [rockdai](https://github.com/rockdai)
+
 ## License 
 
 (The MIT License)
