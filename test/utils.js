@@ -82,7 +82,7 @@ describe('utils.js', function () {
           ]
         ],
         ["/products.:format?", 
-          ["/products.json", "/products.xml", "/products"]
+          ["/products.json", "/products.xml", "/products"],
         ],
         ["/user/:id.:format?", ["/user/12", "/user/12.json"]],
         ["/users", ["/users", "/users/"]],

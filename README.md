@@ -107,7 +107,7 @@ function loadUser(req, res, next) {
   }
 }
 
-var router = urlrouter(function (app) {
+var routerMiddleware = urlrouter(function (app) {
   app.get('/', function (req, res) {
     res.end('GET home page' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
@@ -149,7 +149,7 @@ var router = urlrouter(function (app) {
   });
 }, options);
 
-http.createServer(router).listen(3000);
+http.createServer(routerMiddleware).listen(3000);
 ```
 
 ## Contributors

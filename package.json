@@ -21,6 +21,8 @@
     "mocha": "*",
     "should": "*",
     "rewire": "*",
+    "supertest": "*",
+    "pedding": "*",
     "connect": ">=1.8.0"
   },
   "optionalDependencies": {},

@@ -9,6 +9,7 @@
  */
 
 var rewire = require('rewire');
+var pedding = require('pedding');
 var fs = require('fs');
 var http = require('http');
 var connect = require('connect');
@@ -50,6 +51,19 @@ var router = urlrouter(function (app) {
   app.get('/mwReturn', middleware, function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
+  app.get('/searchlist', function (req, res) {
+    res.end(JSON.stringify({
+      url: req.url,
+      params: req.params
+    }));
+  });
+  app.get('/search.:format?', function (req, res) {
+    res.end(JSON.stringify({
+      url: req.url,
+      params: req.params
+    }));
+  });
+
   app.head('/status', function (req, res) {
     res.end();
   });
@@ -209,6 +223,38 @@ var router = urlrouter(function (app) {
           done();
         });
       });
+
+      it('should /search.:format?', function (done) {
+        done = pedding(2, done);
+        app.request().get('/search').end(function (res) {
+          res.should.status(200);
+          var result = JSON.parse(res.body);
+          result.should.have.keys('url', 'params');
+          result.should.have.property('url', '/search');
+          result.params.should.eql({});
+          done();
+        });
+        app.request().get('/search.json').end(function (res) {
+          res.should.status(200);
+          var result = JSON.parse(res.body);
+          result.should.have.keys('url', 'params');
+          result.should.have.property('url', '/search.json');
+          result.params.should.eql({format: 'json'});
+          done();
+        });
+      });
+
+      it('should /searchlist', function (done) {
+        app.request().get('/searchlist').end(function (res) {
+          res.should.status(200);
+          var result = JSON.parse(res.body);
+          result.should.have.keys('url', 'params');
+          result.should.have.property('url', '/searchlist');
+          result.params.should.eql({});
+          done();
+        });
+      });
+
     });
 
     describe('post()', function () {
