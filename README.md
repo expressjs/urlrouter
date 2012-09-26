@@ -112,7 +112,7 @@ var router = urlrouter(function (app) {
     res.end('GET home page' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
   // with route middleware
-  app.get('/user/:id', loadUser,  function (req, res) {
+  app.get('/user/:id', loadUser, function (req, res) {
     res.end('user: ' + req.params.id);
   });
 
