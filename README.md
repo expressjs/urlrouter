@@ -1,6 +1,6 @@
-# urlrouter
+# urlrouter [![Build Status](https://secure.travis-ci.org/fengmk2/urlrouter.png)](http://travis-ci.org/fengmk2/urlrouter)
 
-[![Build Status](https://secure.travis-ci.org/fengmk2/urlrouter.png)](http://travis-ci.org/fengmk2/urlrouter)
+![logo](https://raw.github.com/fengmk2/urlrouter/master/logo.png)
 
 `http` url router.
 
