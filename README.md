@@ -17,6 +17,7 @@ Support `connect` @1.8.x and @2.2.0+ .
 * 2.2.0+
 * 2.3.0+
 * 2.4.0+
+* 2.7.0+
 
 ```bash
 $ make test-version
@@ -153,11 +154,20 @@ http.createServer(routerMiddleware).listen(3000);
 ```
 
 ## Contributors
-Ordered by date of first contribution.
-[Auto-generated](http://github.com/dtrejo/node-authors) on Thu Sep 13 2012 10:49:38 GMT+0800 (CST).
 
-- [fengmk2](https://github.com/fengmk2)
-- [rockdai](https://github.com/rockdai)
+```bash
+$ git summary 
+
+ project  : urlrouter
+ repo age : 6 months
+ active   : 10 days
+ commits  : 25
+ files    : 19
+ authors  : 
+    20  fengmk2                 80.0%
+     4  rockdai                 16.0%
+     1  rock                    4.0%
+```
 
 ## License 
 
