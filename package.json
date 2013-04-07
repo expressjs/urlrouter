@@ -2,7 +2,7 @@
   "name": "urlrouter",
   "description": "connect missing router middleware, support express format routing.",
   "keywords": ["router", "url", "connect", "middleware", "express"],
-  "version": "0.2.3",
+  "version": "0.3.0",
   "homepage": "http://github.com/fengmk2/urlrouter",
   "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)",
   "repository": {

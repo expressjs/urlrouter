@@ -163,21 +163,21 @@ http.createServer(routerMiddleware).listen(3000);
 $ git summary 
 
  project  : urlrouter
- repo age : 6 months
- active   : 10 days
- commits  : 25
+ repo age : 10 months
+ active   : 12 days
+ commits  : 27
  files    : 19
  authors  : 
-    20  fengmk2                 80.0%
-     4  rockdai                 16.0%
-     1  rock                    4.0%
+    22  fengmk2                 81.5%
+     4  rockdai                 14.8%
+     1  rock                    3.7%
 ```
 
 ## License 
 
 (The MIT License)
 
-Copyright (c) 2012 fengmk2 <fengmk2@gmail.com>.
+Copyright (c) 2012 - 2013 fengmk2 <fengmk2@gmail.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
