@@ -1,3 +1,15 @@
+/*!
+ * urlrouter - example/http-hello.js
+ * Copyright(c) 2013 fengmk2 <fengmk2@gmail.com>
+ * MIT Licensed
+ */
+
+"use strict";
+
+/**
+ * Module dependencies.
+ */
+
 var http = require('http');
 var urlrouter = require('../');
 
@@ -40,6 +52,10 @@ var router = urlrouter(function (app) {
 
   app.options('/check', function (req, res) {
     res.end('OPTIONS ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
+  });
+
+  app.all('/all', function (req, res) {
+    res.end('ALL methods request /all should be handled' + ' , headers: ' + JSON.stringify(req.headers));
   });
 });
 

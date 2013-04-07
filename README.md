@@ -148,6 +148,10 @@ var routerMiddleware = urlrouter(function (app) {
   app.options('/check', function (req, res) {
     res.end('OPTIONS ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
+
+  app.all('/all', function (req, res) {
+    res.end('ALL methods request /all should be handled' + ' , headers: ' + JSON.stringify(req.headers));
+  });
 }, options);
 
 http.createServer(routerMiddleware).listen(3000);

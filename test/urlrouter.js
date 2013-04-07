@@ -8,12 +8,11 @@
  * Module dependencies.
  */
 
-var rewire = require('rewire');
 var pedding = require('pedding');
 var fs = require('fs');
 var http = require('http');
 var connect = require('connect');
-var urlrouter = process.env.URLROUTER_COV ? rewire('../lib-cov/urlrouter') : rewire('../lib/urlrouter');
+var urlrouter = require('../');
 
 var middleware = function (req, res, next) {
   var action = req.url || '';
@@ -37,6 +36,12 @@ var router = urlrouter(function (app) {
     res.end('topic ' + req.params.id);
   });
   app.get('/foo', function (req, res) {
+    res.end(req.method + ' ' + req.url);
+  });
+  app.get('/all', function (req, res) {
+    res.end(req.method + ' ' + req.url);
+  });
+  app.all('/all', function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
   app.get('/mw', middleware, function (req, res) {
@@ -98,7 +103,7 @@ var router = urlrouter(function (app) {
     before(function (done) {
       app = m.createServer(router);
       if (moduleName === 'connect') {
-        app.use(urlrouter.__get__('pageNotFound'));
+        app.use(urlrouter.pageNotFound);
       }
       app = app.listen(0, done);
     });
@@ -296,8 +301,32 @@ var router = urlrouter(function (app) {
       });
     });
 
+    describe('all()', function () {
+      it('should get /all 200', function (done) {
+        app.request().get('/all').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('GET /all');
+          done();
+        });
+      });
+      it('should post /all 200', function (done) {
+        app.request().post('/all').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('POST /all');
+          done();
+        });
+      });
+      it('should put /all 200', function (done) {
+        app.request().put('/all').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('PUT /all');
+          done();
+        });
+      });
+    });
+
     describe('404 Page Not Found', function () {
-      var METHODS = urlrouter.__get__('METHODS');
+      var METHODS = urlrouter.METHODS;
       METHODS.forEach(function (method) {
         it('should ' + method + ' /404 not found', function (done) {
           app.request()[method]('/404').end(function (res) {
