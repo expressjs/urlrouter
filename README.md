@@ -53,7 +53,7 @@ connect(urlrouter(function (app) {
 
 Several callbacks may also be passed.
 
-```javascript
+```js
 
 function loadUser(req, res, next) {
   // You would fetch user from the db
@@ -73,8 +73,8 @@ app.get('/user/:id', loadUser, function () {
 
 These callbacks can be passed within arrays as well.
 
-```javascript
-var middleware = [loadUser, [loadForum, loadThread]];
+```js
+var middleware = [loadUser, loadForum, loadThread];
 app.post('/forum/:fid/thread/:tid', middleware, function () {
  // ...
 });
@@ -82,7 +82,7 @@ app.post('/forum/:fid/thread/:tid', middleware, function () {
 
 ### Using with `http.createServer()`
 
-```javascript
+```js
 var http = require('http');
 var urlrouter = require('urlrouter');
 
