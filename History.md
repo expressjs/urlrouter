@@ -1,4 +1,11 @@
 
+0.4.0 / 2013-06-18 
+==================
+
+  * support more HTTP methods
+  * use blanket instead of jscover
+  * update travis to 0.10
+
 0.3.0 / 2013-04-07 
 ==================
 
