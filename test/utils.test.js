@@ -1,5 +1,5 @@
 /*!
- * urlrouter - test/utils.js
+ * urlrouter - test/utils.test.js
  * Copyright(c) 2012 fengmk2 <fengmk2@gmail.com>
  * MIT Licensed
  */
@@ -11,7 +11,7 @@
 var utils = process.env.URLROUTER_COV ? require('../lib-cov/utils') : require('../lib/utils');
 var should = require('should');
 
-describe('utils.js', function () {
+describe('utils.test.js', function () {
 
   describe('createRouter()', function () {
 
