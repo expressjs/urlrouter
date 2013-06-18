@@ -8,7 +8,7 @@
  * Module dependencies.
  */
 
-var utils = process.env.URLROUTER_COV ? require('../lib-cov/utils') : require('../lib/utils');
+var utils = require('../lib/utils');
 var should = require('should');
 
 describe('utils.test.js', function () {

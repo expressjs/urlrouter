@@ -25,7 +25,9 @@
       "threshold": 100
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "methods": "0.0.1"
+  },
   "devDependencies": {
     "mocha": "*",
     "should": "*",

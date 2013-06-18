@@ -83,6 +83,15 @@ var router = urlrouter(function (app) {
       res.end();
     });
   });
+  app.patch('/patch', function (req, res) {
+    res.write(req.method + ' ' + req.url);
+    req.on('data', function (data) {
+      res.write(data);
+    });
+    req.on('end', function () {
+      res.end();
+    });
+  });
   app.put('/put', function (req, res) {
     res.write(req.method + ' ' + req.url);
     req.on('data', function (data) {
@@ -269,6 +278,16 @@ var router = urlrouter(function (app) {
         app.request().post('/post').write(' helloworld').end(function (res) {
           res.should.status(200);
           res.body.toString().should.equal('POST /post helloworld');
+          done();
+        });
+      });
+    });
+
+    describe('patch()', function () {
+      it('should /patch 200', function (done) {
+        app.request().patch('/patch').write(' hello world').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('PATCH /patch hello world');
           done();
         });
       });

@@ -42,6 +42,18 @@ var router = urlrouter(function (app) {
     });
   });
 
+  app.patch('/users/foo', function (req, res) {
+    res.write('PATCH update ' + req.url + ' start...\n\n');
+    var counter = 0;
+    req.on('data', function (data) {
+      counter++;
+      res.write('data' + counter + ': ' + data.toString() + '\n\n');
+    });
+    req.on('end', function () {
+      res.end('PATCH update ' + req.url + ' end.\n');
+    });
+  });
+
   app.put('/update', function (req, res) {
     res.end('PUT ' + req.url + ' , headers: ' + JSON.stringify(req.headers));
   });
