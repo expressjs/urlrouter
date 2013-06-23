@@ -1,4 +1,4 @@
-# urlrouter [![Build Status](https://secure.travis-ci.org/fengmk2/urlrouter.png)](http://travis-ci.org/fengmk2/urlrouter)
+# urlrouter [![Build Status](https://secure.travis-ci.org/fengmk2/urlrouter.png)](http://travis-ci.org/fengmk2/urlrouter) [![Coverage Status](https://coveralls.io/repos/fengmk2/urlrouter/badge.png)](https://coveralls.io/r/fengmk2/urlrouter)
 
 ![logo](https://raw.github.com/fengmk2/urlrouter/master/logo.png)
 
