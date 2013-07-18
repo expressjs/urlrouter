@@ -381,6 +381,31 @@ var routerWithCustomHandler = urlrouter(function (app) {
   }
 });
 
+describe('router.get("/home", undefined)', function () {
+  it('should throw type error', function () {
+    (function () {
+      urlrouter(function (app) {
+        app.get('/error');
+      });
+    }).should.throw('handle must be function, not undefined');
+    (function () {
+      urlrouter(function (app) {
+        app.get('/error', null);
+      });
+    }).should.throw('handle must be function, not object');
+    (function () {
+      urlrouter(function (app) {
+        app.get('/error', 123);
+      });
+    }).should.throw('handle must be function, not number');
+    (function () {
+      urlrouter(function (app) {
+        app.get('/error', {});
+      });
+    }).should.throw('handle must be function, not object');
+  });
+});
+
 describe('options.pageNotFound() and options.errorHandler()', function () {
   var app;
   before(function (done) {
