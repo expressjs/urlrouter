@@ -40,6 +40,7 @@ var router = urlrouter(function (app) {
   app.get('/foo', function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
+  app.redirect('/redirect', '/redirect/');
   app.get('/all', function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
@@ -188,6 +189,39 @@ var router = urlrouter(function (app) {
           res.body.toString().should.equal('topic 9999');
           done();
         });
+      });
+    });
+
+    describe('redirect()', function () {
+      it('should 301 /redirect to /redirect/', function (done) {
+        app.request().get('/redirect').end(function (res) {
+          res.should.header('Location', '/redirect/');
+          res.should.status(301);
+          done();
+        });
+      });
+
+      it('should throw type error', function () {
+        (function () {
+          urlrouter(function (app) {
+            app.redirect('/error');
+          });
+        }).should.throw('undefined must be string');
+        (function () {
+          urlrouter(function (app) {
+            app.redirect('/error', null);
+          });
+        }).should.throw('null must be string');
+        (function () {
+          urlrouter(function (app) {
+            app.redirect('/error', 123);
+          });
+        }).should.throw('123 must be string');
+        (function () {
+          urlrouter(function (app) {
+            app.redirect('/error', {});
+          });
+        }).should.throw('{} must be string');
       });
     });
 
