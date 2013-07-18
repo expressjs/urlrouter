@@ -18,14 +18,11 @@ Support `connect` @1.8.x and @2.2.0+ .
 * 2.3.0+
 * 2.4.0+
 * 2.7.0+
+* 2.8.0+
 
 ```bash
-$ make test-version
+$ make test-all
 ```
-
-test results: [test_results.md](https://github.com/fengmk2/urlrouter/blob/master/test_results.md)
-
-jscoverage: [**100%**](http://fengmk2.github.com/coverage/urlrouter.html)
 
 ## Install
 
@@ -166,14 +163,14 @@ http.createServer(routerMiddleware).listen(3000);
 $ git summary 
 
  project  : urlrouter
- repo age : 10 months
- active   : 12 days
- commits  : 27
+ repo age : 1 year, 1 month
+ active   : 16 days
+ commits  : 38
  files    : 19
  authors  : 
-    22  fengmk2                 81.5%
-     4  rockdai                 14.8%
-     1  rock                    3.7%
+    33  fengmk2                 86.8%
+     4  rockdai                 10.5%
+     1  rock                    2.6%
 ```
 
 ## License 
