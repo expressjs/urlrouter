@@ -40,7 +40,12 @@ var router = urlrouter(function (app) {
   app.get('/foo', function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
+
   app.redirect('/redirect', '/redirect/');
+  app.get('/redirect/', function (req, res) {
+    res.end('show redirect content');
+  });
+
   app.get('/all', function (req, res) {
     res.end(req.method + ' ' + req.url);
   });
@@ -197,6 +202,14 @@ var router = urlrouter(function (app) {
         app.request().get('/redirect').end(function (res) {
           res.should.header('Location', '/redirect/');
           res.should.status(301);
+          done();
+        });
+      });
+
+      it('should GET /redirect/ not redirect', function (done) {
+        app.request().get('/redirect/').end(function (res) {
+          res.should.status(200);
+          res.body.toString().should.equal('show redirect content');
           done();
         });
       });
