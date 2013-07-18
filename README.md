@@ -37,7 +37,7 @@ $ npm install urlrouter
 
 ### Using with `connect`
 
-```javascript
+```js
 var connect = require('connect');
 var urlrouter = require('urlrouter');
 
@@ -116,6 +116,9 @@ var routerMiddleware = urlrouter(function (app) {
   app.get('/user/:id', loadUser, function (req, res) {
     res.end('user: ' + req.params.id);
   });
+
+  // GET /admin 301 redirect to /admin/
+  app.redirect('/admin', '/admin/');
 
   app.get(/^\/users?(?:\/(\d+)(?:\.\.(\d+))?)?/, loadUser, function (req, res) {
     res.end(req.url + ' : ' + req.params);
