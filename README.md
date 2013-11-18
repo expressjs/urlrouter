@@ -1,5 +1,7 @@
 # urlrouter [![Build Status](https://secure.travis-ci.org/fengmk2/urlrouter.png)](http://travis-ci.org/fengmk2/urlrouter) [![Coverage Status](https://coveralls.io/repos/fengmk2/urlrouter/badge.png)](https://coveralls.io/r/fengmk2/urlrouter)
 
+[![NPM](https://nodei.co/npm/urlrouter.png?downloads=true&stars=true)](https://nodei.co/npm/urlrouter/)
+
 ![logo](https://raw.github.com/fengmk2/urlrouter/master/logo.png)
 
 `http` url router.
@@ -160,20 +162,20 @@ http.createServer(routerMiddleware).listen(3000);
 ## Contributors
 
 ```bash
-$ git summary 
+$ git summary
 
  project  : urlrouter
  repo age : 1 year, 1 month
  active   : 16 days
  commits  : 38
  files    : 19
- authors  : 
+ authors  :
     33  fengmk2                 86.8%
      4  rockdai                 10.5%
      1  rock                    2.6%
 ```
 
-## License 
+## License
 
 (The MIT License)
 
