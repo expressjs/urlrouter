@@ -9,20 +9,20 @@
     "url": "git://github.com/fengmk2/urlrouter.git",
     "type": "git"
   },
-  "bugs": { 
+  "bugs": {
     "url": "http://github.com/fengmk2/urlrouter/issues"
   },
   "main": "index.js",
   "scripts": {
     "test": "make test-all",
-    "blanket": { 
+    "blanket": {
       "pattern": "urlrouter/lib",
       "data-cover-flags": {
         "debug": false
       }
     },
     "travis-cov": {
-      "threshold": 100
+      "threshold": 97
     }
   },
   "dependencies": {
