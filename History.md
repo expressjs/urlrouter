@@ -1,4 +1,10 @@
 
+0.5.2 / 2013-11-23 
+==================
+
+  * dont override the exists req.params
+  * add npm image
+
 0.5.1 / 2013-07-18 
 ==================
 
