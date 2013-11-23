@@ -14,6 +14,7 @@ var pedding = require('pedding');
 var fs = require('fs');
 var http = require('http');
 var connect = require('connect');
+var request = require('supertest');
 var urlrouter = require('../');
 
 var middleware = function (req, res, next) {
@@ -361,11 +362,10 @@ var router = urlrouter(function (app) {
 
     describe('delete()', function () {
       it('should /remove 200', function (done) {
-        app.request().delete('/remove').end(function (res) {
-          res.should.status(200);
-          res.body.toString().should.equal('DELETE /remove');
-          done();
-        });
+        request(app)
+        .del('/remove')
+        .expect(200)
+        .expect('DELETE /remove', done);
       });
     });
 
