@@ -1,3 +1,10 @@
+> [!CAUTION]
+> **This repository is archived and no longer actively maintained.**
+>
+> We are no longer accepting issues, feature requests, or pull requests.
+> For additional support or questions, please visit the [Express.js Discussions page](https://github.com/expressjs/express/discussions).
+
+
 # urlrouter [![Build Status](https://secure.travis-ci.org/fengmk2/urlrouter.png)](http://travis-ci.org/fengmk2/urlrouter) [![Coverage Status](https://coveralls.io/repos/fengmk2/urlrouter/badge.png)](https://coveralls.io/r/fengmk2/urlrouter) [![Dependency Status](https://gemnasium.com/fengmk2/urlrouter.png)](https://gemnasium.com/fengmk2/urlrouter)
 
 [![NPM](https://nodei.co/npm/urlrouter.png?downloads=true&stars=true)](https://nodei.co/npm/urlrouter/)
